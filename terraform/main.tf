@@ -13,10 +13,12 @@ variable "aws_secret_key" {
     type = string
 }
 
-resource "aws_instance" "EC2 instance" {
+resource "aws_instance" "EC2_Instance" {
   ami           = "ami-0474863011a7d1541"
   instance_type = "t2.micro"
   tags = {
     Name = "MSD HW EC2"
   }
 }
+
+
