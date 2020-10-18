@@ -14,8 +14,8 @@ variable "aws_secret_key" {
 }
 
 resource "aws_instance" "EC2_Instance" {
-  ami           = "ami-0474863011a7d1541"
-  instance_type = "t2.micro"
+  ami                  = "ami-0474863011a7d1541"
+  instance_type        = "t2.micro"
   iam_instance_profile = aws_iam_instance_profile.ec2_s3_write_profile.id
   tags = {
     Name = "MSD HW"
@@ -23,7 +23,7 @@ resource "aws_instance" "EC2_Instance" {
 }
 
 resource "aws_s3_bucket" "S3_Bucket" {
-  bucket = "MSD HW S3 Bucket"
+  bucket = "msd-hm-s3-bucket"
   acl    = "public-read"
   tags = {
     Name = "MSD HW"
@@ -32,17 +32,17 @@ resource "aws_s3_bucket" "S3_Bucket" {
 }
 
 resource "aws_iam_role" "ec2_s3_write_role" {
-  name = "ec2_s3_write_role"
-  assume_role_policy = file("ec2-assume-policy.json")
+  name               = "ec2_s3_write_role"
+  assume_role_policy = file("ec2_assume_policy.json")
   tags = {
     Name = "MSD HW"
   }
 }
 
-resource "aws_iam_role_policy" "ec2_s3_write_policy" {
-  name = "ec2_s3_write_policy"
-  role = aws_iam_role.ec2_s3_write_role.id
-  policy = file("ec2-policy.json")
+resource "aws_iam_role_policy" "s3_write_policy" {
+  name   = "s3_write_policy"
+  role   = aws_iam_role.ec2_s3_write_role.id
+  policy = file("ec2_policy.json")
 }
 
 resource "aws_iam_instance_profile" "ec2_s3_write_profile" {
