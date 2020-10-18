@@ -14,7 +14,7 @@ def run_hourly_download(sc):
     # json with data for regular uploads
     pragueWeatherData = 'data/pragueWeatherData.json'
     #bucket and file information
-    bucket = 'MSD HW S3 Bucket'
+    bucket = 'msd-hw-s3-bucket'
     s3FileName = 'pragueWeatherData.json'
 
     print("Running download...")
@@ -22,7 +22,3 @@ def run_hourly_download(sc):
     createJsonFile.createJsonFile()
     s3upload.upload_to_aws(pragueWeatherData, bucket, s3FileName)
     s.enter(36, 1, run_hourly_download, (sc,)) #TODO change to 3600
-
-s3upload.upload_to_aws('index.html', 'MSD HW S3 Bucket', 'index.html')
-s.enter(36, 1, run_hourly_download, (s,)) #TODO change to 3600
-s.run()

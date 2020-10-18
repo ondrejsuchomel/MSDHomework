@@ -1,17 +1,21 @@
+import os
 import boto3
 from botocore.exceptions import NoCredentialsError
-import credentials
 
-ACCESS_KEY = credentials.aws_access_key #TODO
-SECRET_KEY = credentials.aws_secret_key #TODO
+from dotenv import load_dotenv
+load_dotenv(verbose=True)
 
 
-def upload_to_aws(local_file, bucket, s3_file):
-    s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY,
-                      aws_secret_access_key=SECRET_KEY)
+def upload_to_aws(file_name, bucket, s3_name=None):
+    s3 = boto3.client('s3', aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+                      aws_secret_access_key=os.getenv('AWS_ACCESS_KEY_SECRET'))
+
+    if s3_name is None:
+        s3_name = file_name
 
     try:
-        s3.upload_file(local_file, bucket, s3_file)
+        s3.upload_file(file_name, bucket, s3_name,
+                       ExtraArgs={'ACL': 'public-read'})
         print("Upload Successful")
         return True
     except FileNotFoundError:
@@ -21,5 +25,3 @@ def upload_to_aws(local_file, bucket, s3_file):
         print("Credentials not available")
         return False
 
-
-uploaded = upload_to_aws('local_file', 'bucket_name', 's3_file_name')

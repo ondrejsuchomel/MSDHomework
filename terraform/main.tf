@@ -23,8 +23,41 @@ resource "aws_instance" "EC2_Instance" {
 }
 
 resource "aws_s3_bucket" "S3_Bucket" {
-  bucket = "msd-hm-s3-bucket"
+  bucket = "msd-hw-s3-bucket"
   acl    = "public-read"
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Sid": "PublicReadForGetBucketObjects",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": "*"
+          },
+          "Action": "s3:GetObject",
+          "Resource": "arn:aws:s3:::msd-hw-s3-bucket/*"
+      }
+  ]
+}
+EOF
+
+  website {
+    index_document = "index.html"
+    error_document = "error.html"
+
+    routing_rules = <<EOF
+[{
+    "Condition": {
+        "KeyPrefixEquals": "docs/"
+    },
+    "Redirect": {
+        "ReplaceKeyPrefixWith": "documents/"
+    }
+}]
+EOF
+  }
+
   tags = {
     Name = "MSD HW"
     # Environment = "Dev"

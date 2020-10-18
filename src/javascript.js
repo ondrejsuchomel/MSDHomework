@@ -1,4 +1,17 @@
-function generateDynamicTable(weatherInfo) {
+function generateDynamicTable() {
+  var weatherInfo = (function() {
+    var json = null;
+    $.ajax({
+      'async': false,
+      'global': false,
+      'url': "pragueWeatherData.json",
+      'dataType': "json",
+      'success': function(data) {
+        json = data;
+      }
+    });
+    return json;
+  })();
 
   var noOfWeatherInfo = weatherInfo.length;
 
