@@ -17,23 +17,6 @@ variable "bucket_name" {
   type = string
 }
 
-resource "aws_instance" "EC2_Instance" {
-  ami                  = "ami-0c960b947cbb2dd16"
-  instance_type        = "t2.micro"
-  iam_instance_profile = aws_iam_instance_profile.ec2_s3_write_profile.id
-  tags = {
-    Name = "MSD HW"
-  }
-  user_data = <<EOF
-#!/bin/bash
-sudo apt update -y
-sudo apt install -y curl
-sudo curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
-
-EOF
-}
-
 resource "aws_s3_bucket" "S3_Bucket" {
   bucket = var.bucket_name
   acl    = "public-read"
@@ -74,6 +57,25 @@ EOF
     Name = "MSD HW"
     # Environment = "Dev"
   }
+}
+
+resource "aws_instance" "EC2_Instance" {
+  ami                  = "ami-00a205cb8e06c3c4e"
+  instance_type        = "t2.micro"
+  key_name             = "EC2 main-key"
+  iam_instance_profile = aws_iam_instance_profile.ec2_s3_write_profile.id
+  tags = {
+    Name = "MSD HW"
+  }
+  #   user_data = <<EOF
+  # #!/bin/bash
+  # sleep 60
+  # sudo apt update -y
+  # sudo apt install -y curl
+  # sudo curl -fsSL https://get.docker.com -o get-docker.sh
+  # sudo sh get-docker.sh
+  # sudo docker run ondrejsuchomel/msd-hw-dockerized-app
+  # EOF
 }
 
 resource "aws_iam_role" "ec2_s3_write_role" {
