@@ -1,21 +1,18 @@
-function generateDynamicTable() {
-  var weatherInfo = (function() {
-    var json = null;
-    $.ajax({
-      'async': false,
-      'global': false,
-      'url': "pragueWeatherData.json",
-      'dataType': "json",
-      'success': function(data) {
-        json = data;
-      }
-    });
-    return json;
-  })();
+async function generateDynamicTable() {
+  
+  let weatherInfo = "";
+  let url = "./pragueWeatherData.json";
+  
+  async function getJson(url) {
+    let response = await fetch(url);
+    let data = await response.json()
+    return data;
+  }
+
+  weatherInfo = await getJson(url);
 
   var noOfWeatherInfo = weatherInfo.length;
 
-  
   if (noOfWeatherInfo > 0) {
 
     // Create dynamic table

@@ -67,15 +67,14 @@ resource "aws_instance" "EC2_Instance" {
   tags = {
     Name = "MSD HW"
   }
-  #   user_data = <<EOF
-  # #!/bin/bash
-  # sleep 60
-  # sudo apt update -y
-  # sudo apt install -y curl
-  # sudo curl -fsSL https://get.docker.com -o get-docker.sh
-  # sudo sh get-docker.sh
-  # sudo docker run ondrejsuchomel/msd-hw-dockerized-app
-  # EOF
+    user_data = <<EOF
+  #!/bin/bash
+  sudo apt update -y
+  sudo apt install -y curl
+  sudo curl -fsSL https://get.docker.com -o get-docker.sh
+  sudo sh get-docker.sh
+  sudo docker run -e AWS_S3_BUCKET="${var.bucket_name}" ondrejsuchomel/msd-hw-dockerized-app
+  EOF
 }
 
 resource "aws_iam_role" "ec2_s3_write_role" {

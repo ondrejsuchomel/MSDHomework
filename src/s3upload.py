@@ -1,5 +1,6 @@
 import os
 import boto3
+import mimetypes
 from botocore.exceptions import NoCredentialsError
 
 from dotenv import load_dotenv
@@ -10,12 +11,14 @@ def upload_to_aws(file_name, bucket, s3_name=None):
     s3 = boto3.client('s3', aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
                       aws_secret_access_key=os.getenv('AWS_ACCESS_KEY_SECRET'))
 
+    file_mime_type, _ = mimetypes.guess_type(file_name)
+
     if s3_name is None:
         s3_name = file_name
 
     try:
         s3.upload_file(file_name, bucket, s3_name,
-                       ExtraArgs={'ACL': 'public-read'})
+                       ExtraArgs={'ACL': 'public-read', 'ContentType': file_mime_type})
         print("Upload Successful")
         return True
     except FileNotFoundError:
