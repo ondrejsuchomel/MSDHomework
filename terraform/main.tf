@@ -13,17 +13,29 @@ variable "aws_secret_key" {
   type = string
 }
 
+variable "bucket_name" {
+  type = string
+}
+
 resource "aws_instance" "EC2_Instance" {
-  ami                  = "ami-0474863011a7d1541"
+  ami                  = "ami-0c960b947cbb2dd16"
   instance_type        = "t2.micro"
   iam_instance_profile = aws_iam_instance_profile.ec2_s3_write_profile.id
   tags = {
     Name = "MSD HW"
   }
+  user_data = <<EOF
+#!/bin/bash
+sudo apt update -y
+sudo apt install -y curl
+sudo curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+EOF
 }
 
 resource "aws_s3_bucket" "S3_Bucket" {
-  bucket = "msd-hw-s3-bucket"
+  bucket = var.bucket_name
   acl    = "public-read"
   policy = <<EOF
 {
@@ -36,7 +48,7 @@ resource "aws_s3_bucket" "S3_Bucket" {
             "AWS": "*"
           },
           "Action": "s3:GetObject",
-          "Resource": "arn:aws:s3:::msd-hw-s3-bucket/*"
+          "Resource": "arn:aws:s3:::${var.bucket_name}/*"
       }
   ]
 }
