@@ -13,6 +13,21 @@ variable "default_tag" {
   default = "msd-hw"
 }
 
+variable "app_timer" {
+  type = number
+  default = 3600 
+}
+
+variable "owm_city_id" {
+  type = string
+  default = "3067696"
+}
+
+variable "owm_api_key" {
+  type = string
+  default = "44419df6dc22898347ae3db58aa344d5"
+}
+
 variable "bucket_name" {
   type    = string
   default = "msd-hw-s3bucket"
@@ -25,7 +40,7 @@ variable "bucket_acl" {
 
 variable "ec2_ami" {
   type = string
-  default = "ami-00a205cb8e06c3c4e"
+  default = "ami-0c960b947cbb2dd16"
 }
 
 variable "ec2_instance_type" {

@@ -6,7 +6,9 @@ RUN apt install -y python3.9
 RUN apt install -y python3-pip
 RUN pip3 install boto3
 RUN pip3 install python-dotenv
+RUN apt install awscli -y
 COPY . .
 ENV AWS_S3_BUCKET = "msd-hw-s3bucket"
-CMD python app.py
-
+ENV APP_TIMER = "10"
+ENV OWM_API_KEY = "44419df6dc22898347ae3db58aa344d5"
+ENV OWM_CITY_ID = "3067696"

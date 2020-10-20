@@ -8,8 +8,7 @@ load_dotenv(verbose=True)
 
 
 def upload_to_aws(file_name, bucket, s3_name=None):
-    s3 = boto3.client('s3', aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-                      aws_secret_access_key=os.getenv('AWS_ACCESS_KEY_SECRET'))
+    s3 = boto3.client('s3')
 
     file_mime_type, _ = mimetypes.guess_type(file_name)
 
