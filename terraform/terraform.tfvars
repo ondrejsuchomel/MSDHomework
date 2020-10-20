@@ -1,0 +1,8 @@
+  credentials_file = "/Users/tf_user/.aws/creds"
+  aws_region = "eu-central-1"
+  default_tag = "msd-hw"
+  bucket_name = "msd-hw-s3bucket"
+  bucket_acl = "public-read"
+  ec2_ami = "ami-00a205cb8e06c3c4e"
+  ec2_instance_type = "t2.micro"
+  ec2_ssh_key_name = "EC2 main-key"

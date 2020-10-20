@@ -1,25 +1,6 @@
-provider "aws" {
-  region     = "eu-central-1"
-  version    = "~> 3.11.0"
-  access_key = var.aws_access_key
-  secret_key = var.aws_secret_key
-}
-
-variable "aws_access_key" {
-  type = string
-}
-
-variable "aws_secret_key" {
-  type = string
-}
-
-variable "bucket_name" {
-  type = string
-}
-
-resource "aws_s3_bucket" "S3_Bucket" {
+resource "aws_s3_bucket" "s3_bucket" {
   bucket = var.bucket_name
-  acl    = "public-read"
+  acl    = var.bucket_acl
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -54,41 +35,40 @@ EOF
   }
 
   tags = {
-    Name = "MSD HW"
-    # Environment = "Dev"
+    Name = "${var.default_tag}"
   }
 }
 
-resource "aws_instance" "EC2_Instance" {
-  ami                  = "ami-00a205cb8e06c3c4e"
-  instance_type        = "t2.micro"
-  key_name             = "EC2 main-key"
+resource "aws_instance" "ec2_instance" {
+  ami                  = var.ec2_ami
+  instance_type        = var.ec2_instance_type
+  key_name             = var.ec2_ssh_key_name
   iam_instance_profile = aws_iam_instance_profile.ec2_s3_write_profile.id
   tags = {
-    Name = "MSD HW"
+    Name = "${var.default_tag}"
   }
-    user_data = <<EOF
-  #!/bin/bash
-  sudo apt update -y
-  sudo apt install -y curl
-  sudo curl -fsSL https://get.docker.com -o get-docker.sh
-  sudo sh get-docker.sh
-  sudo docker run -e AWS_S3_BUCKET="${var.bucket_name}" ondrejsuchomel/msd-hw-dockerized-app
-  EOF
+  #   user_data = <<EOF
+  # #!/bin/bash
+  # sudo apt update -y
+  # sudo apt install -y curl
+  # sudo curl -fsSL https://get.docker.com -o get-docker.sh
+  # sudo sh get-docker.sh
+  # sudo docker run -e AWS_S3_BUCKET="${var.bucket_name}" ondrejsuchomel/msd-hw-dockerized-app
+  # EOF
 }
 
 resource "aws_iam_role" "ec2_s3_write_role" {
   name               = "ec2_s3_write_role"
-  assume_role_policy = file("ec2_assume_policy.json")
+  assume_role_policy = file("data/ec2_assume_policy.json")
   tags = {
-    Name = "MSD HW"
+    Name = "${var.default_tag}"
   }
 }
 
 resource "aws_iam_role_policy" "s3_write_policy" {
   name   = "s3_write_policy"
   role   = aws_iam_role.ec2_s3_write_role.id
-  policy = file("ec2_policy.json")
+  policy = file("data/ec2_policy.json")
 }
 
 resource "aws_iam_instance_profile" "ec2_s3_write_profile" {
