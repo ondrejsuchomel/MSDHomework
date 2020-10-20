@@ -9,12 +9,13 @@ http://msd-hw-s3bucket.s3-website.eu-central-1.amazonaws.com/
 3. Set up AWS CLI (https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html), aquire AWS credentials (secret and access keys) and set them as enviroment variables via AWS CLI (if necessary refer to documentation for AWS CLI at link above)
 4. Update terraform.tfvars file in *repository/terraform* folder. 
 
-Variables which have to be changed are: 
+&ensp;&ensp;&ensp;Variables which have to be changed are: 
 * credentials_file - if it differs from the one specified in the file, 
 * bucket_name - name provided here is used for provided solution and buckets have to have unique names
 * ec2_ssh_key_name - if you want to ssh to the ec2
 
-Other variable values can be changed but it is not necessary for function of the terraform.
+&ensp;&ensp;&ensp;Other variable values can be changed but it is not necessary for function of the terraform.
+
 5. Open *repository/terraform folder* in terminal and run **terraform apply --auto-approve** command. It should deploy all necessary infrastructure for AWS, set up EC2, download dockerized application and launch it on EC2.
 
 
