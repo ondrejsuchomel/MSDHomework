@@ -78,7 +78,7 @@ async function generateDynamicTable() {
           // var min = a.getMinutes();
           // var sec = a.getSeconds();
           // + ':' + min + ':' + sec
-          var time = date + ' ' + month + ' ' + year + ' ' + hour;
+          var time = hour + 'h ' + date + ' ' + month + ' ' + year ;
           return time;
         }
 
