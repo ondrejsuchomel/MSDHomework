@@ -7,10 +7,10 @@ http://msd-hw-s3bucket.s3-website.eu-central-1.amazonaws.com/
 1. Clone following github repository: https://github.com/ondrejsuchomel/MSDHomework 
 2. Set up Terraform - (https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started)
 3. Set up AWS CLI (https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html), aquire AWS credentials (secret and access keys) and set them as enviroment variables via AWS CLI (if necessary refer to documentation for AWS CLI at link above)
-4. Update terraform.tfvars file in *repository/terraform* folder. 
+4. Update variables.tf file in *repository/terraform* folder. 
 
 &ensp;&ensp;&ensp;Variables which have to be changed are: 
-* credentials_file - if it differs from the one specified in the file, 
+* credentials_file - if its location differs from the one specified in the file, 
 * bucket_name - name provided here is used for provided solution and buckets have to have unique names
 * ec2_ssh_key_name - if you want to ssh to the ec2
 

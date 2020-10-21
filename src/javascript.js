@@ -1,7 +1,7 @@
 async function generateDynamicTable() {
   
   let weatherInfo = "";
-  let url = "./pragueWeatherData.json";
+  let url = "./final_weather_data_file.json";
   
   async function getJson(url) {
     let response = await fetch(url);

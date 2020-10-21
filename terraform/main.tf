@@ -92,7 +92,7 @@ resource "aws_route_table" "route_table" {
 resource "aws_subnet" "subnet_1" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.1.0/24"
-  availability_zone = "eu-central-1a"
+  availability_zone = var.availability_zone
 
   tags = {
     Name = "${var.default_tag}"
@@ -168,7 +168,7 @@ resource "aws_instance" "ec2_instance" {
   instance_type        = var.ec2_instance_type
   key_name             = var.ec2_ssh_key_name
   iam_instance_profile = aws_iam_instance_profile.ec2_s3_write_profile.id
-  availability_zone    = "eu-central-1a"
+  availability_zone    = var.availability_zone
   tags = {
     Name = "${var.default_tag}"
   }
