@@ -173,13 +173,13 @@ resource "aws_instance" "ec2_instance" {
     Name = "${var.default_tag}"
   }
   user_data = <<EOF
-  #!/bin/bash
-  sudo apt update -y
-  sudo apt install awscli -y
-  sudo curl -fsSL https://get.docker.com -o get-docker.sh
-  sudo sh get-docker.sh
-  sudo docker run -e AWS_S3_BUCKET="${var.bucket_name}" -e APP_TIMER="${var.app_timer}" -e OWM_API_KEY="${var.owm_api_key}" -e OWM_CITY_ID="${var.owm_city_id}"  ondrejsuchomel/msd-hw-dockerized-app
-  EOF
+#!/bin/bash
+sudo apt update -y
+sudo apt install awscli -y
+sudo curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo docker run -e AWS_S3_BUCKET="${var.bucket_name}" -e APP_TIMER="${var.app_timer}" -e OWM_API_KEY="${var.owm_api_key}" -e OWM_CITY_ID="${var.owm_city_id}"  ondrejsuchomel/msd-hw-dockerized-app python3 app.py
+EOF
 
 
   network_interface {
