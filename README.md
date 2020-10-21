@@ -50,7 +50,7 @@ Docker setup is done inside Dockerfile located inside of *repository/src* folder
 
 ## Application
 
-The application files are located inside of *repository/src* folder. It consists of data folder where the downloaded data is stored in *.json format and script files. getWeatherInformation.py downloads and stores the data from openweathermap inside of pragueWeatherSource.json. createJsonFile.py is used to combine separate json information from pragueWeatherSource.json to one json object in pragueWeatherData.json. s3upload.py is script for uploading the files to the s3bucket. app.py itself is mainly used for scheulder of regular downloads **which are set up to run every 10 minutes - regular download is run and file is then uploaded to the s3bucket.**
+The application files are located inside of *repository/src* folder. It consists of data folder where the downloaded data is stored in *.json format and script files. getWeatherInformation.py downloads and stores the data from OpenWeatherMap inside of pragueWeatherSource.json. createJsonFile.py is used to combine separate json information from pragueWeatherSource.json to one json object in pragueWeatherData.json. s3upload.py is script for uploading the files to the s3bucket. app.py itself is mainly used for scheulder of regular downloads **which are set up to run every 10 minutes - regular download is run and file is then uploaded to the s3bucket.**
 
 ## Docker image
 
