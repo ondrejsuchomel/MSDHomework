@@ -19,7 +19,7 @@ variable "default_tag" {
 variable "app_timer" {
   description = "Time in seconds between API calls and uploads to s3 performed by the dockerized app"
   type    = number
-  default = 60
+  default = 3600
 }
 
 variable "owm_city_id" {
