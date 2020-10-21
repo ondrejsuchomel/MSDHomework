@@ -15,6 +15,7 @@ Demonstrate the ability to automate the deployment of dockerized application
   https://github.com/CSSEGISandData/COVID-19/
   
   https://openweathermap.org/current
+  
 2. Store downloaded dataset to S3 bucket
 3. From every downloaded dataset, extract some specific data (eg data relevant for Czechia, Prague, ...)
 4. Display all extracted data using a single HTML page served from S3. A simple table is enough.
