@@ -56,4 +56,18 @@ Docker image was created with **docker build . -t ondrejsuchomel/msd-hw-dockeriz
 
 # Possible improvements:
 
+1. Container orchestration
 
+In model scenario when for example more instances of the application (i.e. for different cities) were required to be managed or it would be needed to be flexible with number of instances either way (scale up or down). It would make sence to use some kind of container orchestration tools like Kubernetes. Which would open posibility to create and handle these instances easier. Alternative to Kubernetes for smaller deployments could be Amazon Elastic Container Service (ECS) which should be easier to set up and deploy when working mostly with other Amazon Web Services.
+
+2. Serverless solution
+
+Basicaly an alternative to setting up an managing infrastructure "manualy" as seen in a solution (in this case by terraform) serverless solution (like Amazon Lambda) can be used to replace this. Serverless solution offers less complex solution but also with less flexibility in a way how the infrastructure is set up and managed.
+
+3. Make more use of docker containers
+
+In provided solution Docker is set up from a scratch (from clean ubuntu image) but some parts could excluded from docker image set up (i.e. aws cli) and be integrated as containers. This would also be more interesting if the app would use more tools and be more complex than it actualy is.
+
+4. Focus more on CICD
+
+Automate whole process of integration from building of docker image of the app and pushing it to docker hub and include actual tests / linting to run on application and docker image. All of this can be done in GitLab.
