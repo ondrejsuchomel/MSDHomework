@@ -35,7 +35,7 @@ EOF
   }
 
   tags = {
-    Name = "${var.default_tag}"
+    Name = var.default_tag
   }
 }
 
@@ -63,7 +63,7 @@ resource "aws_iam_instance_profile" "ec2_s3_write_profile" {
 resource "aws_vpc" "vpc" {
   cidr_block = "10.0.0.0/16"
   tags = {
-    Name = "${var.default_tag}"
+    Name = var.default_tag
   }
 }
 
@@ -85,7 +85,7 @@ resource "aws_route_table" "route_table" {
   }
 
   tags = {
-    Name = "${var.default_tag}"
+    Name = var.default_tag
   }
 }
 
@@ -95,7 +95,7 @@ resource "aws_subnet" "subnet_1" {
   availability_zone = var.availability_zone
 
   tags = {
-    Name = "${var.default_tag}"
+    Name = var.default_tag
   }
 }
 
@@ -141,7 +141,7 @@ resource "aws_security_group" "allow_web" {
   }
 
   tags = {
-    Name = "${var.default_tag}"
+    Name = var.default_tag
   }
 }
 

@@ -6,4 +6,6 @@ terraform {
       source  = "hashicorp/aws"
     }
   }
+  backend "http" {
+  }
 }

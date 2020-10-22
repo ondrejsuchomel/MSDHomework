@@ -4,7 +4,7 @@ http://msd-hw-s3bucket.s3-website.eu-central-1.amazonaws.com/
 
 # Instructions for the deployment of the application
 
-1. Clone following github repository: https://github.com/ondrejsuchomel/MSDHomework 
+1. Clone following github repository: https://gitlab.com/ondrejsuchomel/MSDHomework 
 2. Set up Terraform - (https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started)
 3. Set up AWS CLI (https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html), aquire AWS credentials (secret and access keys) and set them as enviroment variables via AWS CLI (if necessary, refer to documentation for AWS CLI at link above)
 4. Update variables.tf file in *repository/terraform* folder. 
@@ -27,6 +27,7 @@ http://msd-hw-s3bucket.s3-website.eu-central-1.amazonaws.com/
 * Python 3.9.0
 * python-boto3
 * python-dotenv
+* GitLab CI/CD
 
 ## AWS Infrastructure Setup - via Terraform:
 
@@ -58,16 +59,18 @@ Docker image was created with **docker build . -t ondrejsuchomel/msd-hw-dockeriz
 
 1. Container orchestration
 
-In model scenario when for example more instances of the application (i.e. for different cities) were required to be managed or it would be needed to be flexible with number of instances either way (scale up or down). It would make sence to use some kind of container orchestration tools like Kubernetes. Which would open posibility to create and handle these instances easier. Alternative to Kubernetes for smaller deployments could be Amazon Elastic Container Service (ECS) which should be easier to set up and deploy when working mostly with other Amazon Web Services.
+In a model scenario where for example more instances of the application (i.e. weather information for different cities) were required to be managed or it would be necessary to be flexible with number of instances in either way (scale up or down) it would make sense to use some kind of container orchestration tools like Kubernetes for example. Which would open posibility to create and handle bigger number of instances easier. I did not try to implement this since it is partialy out of scope of the assignment (since the app is small) and also because whole thing is a bit more complex to set up and run.
 
 2. Serverless solution
 
-Basicaly an alternative to setting up an managing infrastructure "manualy" as seen in a solution (in this case by terraform) serverless solution (like Amazon Lambda) can be used to replace this. Serverless solution offers less complex solution but also with less flexibility in a way how the infrastructure is set up and managed.
+Alternative to Kubernetes for smaller deployments could be Amazon Elastic Container Service (ECS) which is easier to set up and deploy when working mostly with other Amazon Web Services. Basicaly it is an alternative to setting up and managing infrastructure "manually". Further abstraction from Docker could be written in Amazon Lambda. Serverless solution in general offers less complex solutions but also less flexibility in a way how the infrastructure is set up and managed. Implementing actual solution of the assignment this way would in my opinion miss the point of whole excercise since it is esentialy a workaround around and would demonstrate just the ability to write the Lambda while evading the infrastructure set up.
 
 3. Make more use of docker containers
 
 In provided solution Docker is set up from a scratch (from clean ubuntu image) but some parts could excluded from docker image set up (i.e. aws cli) and be integrated as containers. This would also be more interesting if the app would use more tools and be more complex than it actualy is.
 
-4. Focus more on CICD
+4. CI/CD
 
-Automate whole process of integration from building of docker image of the app and pushing it to docker hub and include actual tests / linting to run on application and docker image. All of this can be done in GitLab.
+Improve uppon the currently provided CI/CD which is very simple and serves just as a tool to automate the deployment of the AWS infrastructure with terraform. But this basic set up can be build on and improved to include for example automation for building of the docker image, tests to run on the code of application and on the docker image itself or linting.
+
+Author: ondrej_suchomel@centrum.cz
