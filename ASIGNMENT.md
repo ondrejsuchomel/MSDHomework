@@ -12,6 +12,7 @@ Demonstrate the ability to automate the deployment of dockerized application
 
 ## Task:
 1. Download regularly (e.g. daily / hourly) some dataset from the free data provider. If you down know any, choose from:
+
   https://github.com/CSSEGISandData/COVID-19/
   
   https://openweathermap.org/current
